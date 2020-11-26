@@ -1,0 +1,15 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="de.telekom.voice.cli" level="DEBUG"/>
+    <logger name="org.apache.http" level="WARN"/>
+    <logger name="feign.Logger" level="WARN"/>
+
+    <root level="error">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

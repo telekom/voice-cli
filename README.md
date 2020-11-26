@@ -1,6 +1,4 @@
-<h1 align="center">
-    telekom voice-cli
-</h1>
+# Voice Platform Commandline Client
 
 <p align="center">
     <a href="https://github.com/telekom/voice-cli/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/telekom/voice-cli?style=flat"></a>
@@ -17,19 +15,114 @@
   <a href="#licensing">Licensing</a>
 </p>
 
-The goal of this project is ... _TBD_
+A commandline client to interact with Telekom Voice Platform. 
+Type `help` to see all available commands.
 
-## About this component
+### Features
+ 
+* Invoke via text
+* Invoke via audio
+* Retrieve conversation history entries
+* Stored commands: You can define often used commands in `commands.txt` and execute them using `! [n]`, which executes the command in line `[n]`. List all stored commands with `!`.
+* Device metadata: You can define the device metadata in `options.json`.
+* Device capabilities: You can define the device capabilities in `options.json`.
+* Repeat last command with `!!`
+* Password database
+ 
+## Prerequisites
+ 
+1. JDK 8
+2. Maven >3.5
+ 
+## Running via Maven
+ 
+`mvn clean package exec:java -Dexec.args="--apikey <PUT-API-KEY> --idm-client-id <PUT-IDM-CLIENT-ID>"`
+ 
+You can omit the `clean package` phases after first invocation of the above command.
+ 
+## Usage
+ 
+Start with `--help` to see commandline options.
 
-_TBD_
+```
+usage: voice-cli
+ -a,--apikey <arg>          Sets the API key
+ -c,--idm-client-id <arg>   Sets the Telekom IDM Client ID
+ -h,--help                  Prints this help
+```
+ 
+### Password database
+ 
+The client contains a password database. The available passwords are stored in the file `passwords.txt`.
+Each line is a username/password pair, separated by space.
+ 
+The available credentials can be listed with `print-passwords`.
+ 
+When asked for a username or password, the password database can be queried by entering `?`. A username / password
+can be selected by entering `! <num>`. To access the first username / password, enter `! 1`.
+ 
+#### Example
+ 
+`passwords.txt` contains
+ 
+```
+alice super-secret-a
+bob super-secret-b
+```
+ 
+When asked for a username, `! 1` selects "alice", `! 2` selects "bob". When asked for a password, `! 1` selects
+"super-secret-a", `! 2` selects "super-secret-b". Entering `?` lists all available entries.
+ 
+### Options
+ 
+In the file `options.json` you can define multiple options:
+ 
+```json
+{
+  "serialNumber": "xxx", // Serial number of the device
+  "dynamicDeviceMetadata": {
+    "zipCode": "81549" // can be arbitray key-value map
+  },
+  "wakeUpWord": "Hallo Magenta", // Wake up word, if all audio is streamed including the wakeup word
+  "capabilities": "ssml no-ncs" // Device capabilities
+}
+```
 
-## Development
+If this file doesn't exist, default values are assumed:
 
-_TBD_
+```json
+{
+  "serialNumber": null,
+  "dynamicDeviceMetadata": {},
+  "wakeUpWord": null,
+  "capabilities": null
+}
+```
+ 
+### Examples
+ 
+#### Login with Telekom IDM
 
-### Build
-
-_TBD_
+```
+Command: login-idm
+```
+ 
+#### Ask for the weather
+ 
+```
+Command: invoke-text Wie ist das Wetter in Frankfurt
+Server: Das aktuelle Wetter in Frankfurt am Main ist 4 Grad und regnerisch
+```
+ 
+## Building
+ 
+1. Install JDK 8
+1. Run `mvn clean package`
+1. Check the `target` folder for a `voice-cli-*-distribution.zip`
+ 
+## How tos
+ 
+* [Create WAV file](doc/howto-create-wav.md)
 
 ## Code of Conduct
 

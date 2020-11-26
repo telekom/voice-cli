@@ -1,0 +1,18 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Maven
+target/
+
+# Application
+*.pcm
+/audio/
+/commands.txt
+/passwords.txt
+/tokens/
+/wav/
+options.json
+
+#OS specific
+.DS_Store

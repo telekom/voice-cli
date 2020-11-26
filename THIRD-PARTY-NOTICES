@@ -8,3 +8,8 @@ to our attention by contacting us via this email: vineet.hingorani@telekom.de
 
 Components:
 -----------
+ * Feign
+ * Apache Commons
+ * Jackson
+ * Slf4j
+ * JLine
